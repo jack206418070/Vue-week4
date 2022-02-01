@@ -1,0 +1,452 @@
+
+
+
+body{
+    background-position: 50%;
+}
+
+/*  header start */
+header{
+    background-color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0px 3px 4px gray;
+    width: 100%;   
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    a{
+        display: block;
+        padding: 8px 16px;
+        &:hover{
+            i{
+                color: $primary;
+            }
+        }
+        i{
+            color: $primary;
+            font-size: 24px;
+        }
+    }
+}
+.menu-btn{
+    padding: 15px;
+    position: relative;
+    display: none;
+    @include mobile{
+        display:block;
+    }
+    &:before{
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: 4px;
+        width: 25px;
+        background: $primary;
+        box-shadow: 0 8px 0 $primary,
+                    0 -8px 0 $primary;
+    }
+    cursor: pointer;
+}
+
+h1{
+    font-size: 30px;
+    color: $primary;
+    letter-spacing: 3px;
+}
+
+.side-menu{
+    width: 200px;
+    text-align: center;
+    padding-top: 63px;
+    position: relative;
+    background-color: lighten($primary, 10%);
+    min-height: 100vh;
+    transition:.3s;
+    &.show{
+        display: block;
+    }
+    &.hide{
+        display: none;
+    }
+    &.small{
+        width: 80px;
+    }
+    i{
+        transition: font-size .3s;
+        &.small{
+            font-size: 24px;
+        }
+    }
+    span{
+        transition: .3s;
+        visibility: visible;
+        &.small{
+            display: none;
+            visibility: hidden;
+        }
+    }
+    // @include pad{
+    //     display: none;
+    // }
+    .admin-info{
+        background: $primary;
+        padding: 15px 10px;
+        img{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+        .admin-profile{
+            flex: 0 0 80%;
+            transition: .3s;
+            visibility:visible;
+            &.small{
+                visibility: hidden;
+                display:none;
+            }
+            h3{
+                font-size: 16px;
+                color: #fff;
+                font-weight: bold;
+            }
+            p{
+                font-size: 12px;
+                color: #ccc;
+            }
+        }
+    }
+    ul{
+        text-align:left;
+        a{
+            color: #bbb;
+            display: block;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+            &:hover{
+                background-color: $primary;
+                color:white;
+            }
+            i{
+                width: 20%;
+                text-align: center;
+            }
+            span{
+                width: 80%;
+                text-align: left;
+            }
+        }
+    }
+    .side-toggle{
+        position: absolute;
+        width: 55px;
+        height: 40px;
+        bottom: 1%;
+        right: 0;
+        background: $primary;
+        border-radius: 45% 0 0 45%;
+        cursor: pointer;
+        &:hover{
+            i{
+                color:white;
+            }   
+        }
+        i{
+            color: #ccc;
+            line-height: 40px;
+            font-size: 20px;
+        }
+    }
+}
+
+section > .content{
+    flex: 1 1 85%;
+    position: relative;
+    padding-top: 63px;
+    height: 100vh;
+    margin: 0 auto;
+    @include pad{
+        flex: 1 0 80%;
+        height: 100vh;
+    }
+    .container{
+        padding: 10px 20px;
+    }
+}
+
+
+
+
+
+.text-inner{
+    padding-left: 80px;
+}
+
+.price{
+    justify-content:space-around;
+    margin-top: 30px;
+    .origin__price{
+        background: #FF6B6B;
+        color: white;
+    }
+    .sale__price{
+        color: white;
+    }
+    p{
+        padding: 10px 20px;
+    }
+}
+
+
+
+
+.product{
+    letter-spacing:0.1rem;
+    align-self: baseline;
+    color: #fff;
+    box-shadow: 3px 3px 2px gray;
+    @include pad{
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    &__title{
+        background-color: #1A535C;
+    }
+    h3{
+        align-self: center;
+    }
+    >ul{
+        >li{
+            padding: 8px 10px;
+            transition: transform 0.3s;
+            border-bottom: 1px solid #999;
+        }
+    }
+    .info__group, h3{
+        font-size: 16px;
+        @include mobile{
+            font-size: 14px;
+            width: 20%;
+            white-space: nowrap;
+        }
+    }
+    .info__group{
+        @include mobile{
+            width: 80%;
+            a{
+                display: block;
+                width: 80% !important;
+                margin-bottom: 5px;
+            }
+        }
+        li{
+            text-align: center;
+            align-self: center;
+            @include mobile{
+                width: 33% !important;
+            }
+        }
+        p{
+            width: 50%;
+            color: #FF6B6B;
+            align-self: center;
+            &.active{
+                color:#1A535C;
+            }
+            @include mobile{
+                display:none;
+            }
+        }
+    }
+    &__item{
+        color: black;
+        &:hover{
+           transform: scale(1.03);
+           box-shadow: 3px 3px 3px gray;
+        }
+    }
+    .eval{
+        i{
+            &.active{
+                color: $primary;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.search{
+    @include mobile{
+        width: 100%;
+    }
+    &__input{
+        position: relative;
+        margin-left: auto;
+        @include mobile{
+            width: 50%;
+        }
+    }
+    &__btn{
+        position: absolute;
+        width: 15%;
+        height: 35px;
+        background: $primary;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        text-align:center;
+        cursor: pointer;
+        color: #fff;
+        font-weight: bold;
+        line-height: 35px;
+    }
+    input{
+        border-radius: 3px;
+        transition: all 1s;
+        border: 2px solid #ccc;
+        &:focus{
+            outline: none;
+            border: 2px solid #000;
+        }
+    }
+}
+
+
+.total__product{
+    padding: 10px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color:#000;
+    @include pad{
+        justify-content: space-between;
+        a{
+            width: 20% !important;
+        }
+    }
+    @include mobile{
+        flex: 0 0 100%;
+    }
+    p{
+        @include pad{
+            margin-right: 0;
+        }
+    }
+    @include mobile{
+        a{
+            width: 30% !important;
+        }
+        p{
+            width: 70% !important;
+        }
+    }
+}
+
+
+.productModal{
+    position: absolute;
+    width: 40%;
+    background: #fff;
+    z-index: 10;
+    left: 50%;
+    top: 80px;
+    transform: translateX(-50%);
+    transition: 0.3s;
+    z-index: 100;
+    opacity: 1;
+    border: 1px solid lightgray;
+    &.show{
+        opacity: 1;
+    }
+    @include pad{
+        width: 70% !important;
+    }
+    @media (max-width: 415px) {
+        width: 90% !important;
+    }
+    h2{
+        text-align: center;
+        background: #FF6B6B;
+        padding: 10px 0;
+    }
+    form{
+        height: 600px;
+        background: #F7FFF7;
+        overflow-y: scroll;
+        @include mobile{
+            height: 500px;
+        }
+        label{
+            margin-bottom: 5px;
+            display: block;
+        }
+        select{
+            -webkit-appearance:none !important;
+        }
+        input, select{
+            display: block;
+            padding: 10px 5px;
+            outline: none;
+            border: 1px solid gray;
+            border-radius:4px;
+            transition: 0.1s;
+            &:focus{
+                outline: 3px solid gray;
+            }
+        }
+        
+    }
+    .delete__content{
+        padding: 20px 0;
+        p{
+            text-align: center;
+            font-weight: bold;
+            color: red;
+        }
+    }
+    .eval{
+        i{
+            font-size: 20px;
+            cursor: pointer;
+            &:hover{
+                font-weight: bold;
+                color: $primary;
+            }
+            &.active{
+                font-weight: bold;
+                color: $primary; 
+            }  
+        }
+    }
+}
+
+.file__img{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display:inline-block;
+    .file__img__del{
+        position: absolute;
+        width: 60px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        background-color: lighten(#000, 20%);
+        opacity: 0;
+        padding: 10px;
+        transition: .3s;
+        cursor: pointer;
+        &:hover{
+            opacity: 1;
+        }
+    }
+}
+
+
+

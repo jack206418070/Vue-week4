@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入/註冊頁面</title>
+    <link rel="stylesheet" href="./src/css/all.css" class="css">
+</head>
+<body>
+    <div id="app">
+        <div class="login__banner">
+            <div class="container h-100 d-flex align-items-center">
+                <form action="#">
+                    <div class="login__tpye">
+                        <h2 class="text-center">登入 / 註冊</h2>
+                    </div>
+                    <div class="form-control">
+                        <label for="email">帳號</label>
+                        <input @change="checkEmail" v-model="username" :class="{'fail': veeFail.email === 1}" type="eamil" id="email" name="email">
+                    </div>
+                    <div class="form-control">
+                        <label for="password">密碼</label>
+                        <input v-model="password" type="password" id="password" name="password" autocomplete="on">
+                    </div>
+                    <p v-if="is_err == 1" class="login__err">帳號或密碼錯誤!</p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn--success py-3 px-4">註冊</a>
+                        <a href="#" @click="postSignIn" class="btn btn--success py-3 px-4">登入</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script src="./src/js/login.js" type="module"></script>
+</body>
+</html>

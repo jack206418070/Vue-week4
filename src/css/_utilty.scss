@@ -1,0 +1,139 @@
+@for $i from 1 through $max {
+    .w-#{$i*10} {
+      width: $i * 10%;
+    }
+  }
+  
+  @for $i from 1 through $max {
+      .p-#{$i} {
+          padding: $i * 4px;
+      }
+      .px-#{$i} {
+          padding-left: $i * 4px !important;
+          padding-right: $i * 4px !important;
+      }
+      .py-#{$i} {
+          padding-top: $i * 4px !important;
+          padding-bottom: $i * 4px !important;
+      }
+      .ps-#{$i} {
+          padding-left: $i * 4px;
+      }
+      .pe-#{$i} {
+          padding-right: $i * 4px;
+      }
+  }
+  @for $i from 1 through $max {
+      .m-#{$i} {
+          margin: $i * 4px;
+      }
+      .mx-#{$i} {
+          margin-left: $i * 4px;
+          margin-right: $i * 4px;
+      }
+      .my-#{$i} {
+          margin-top: $i * 4px;
+          margin-bottom: $i * 4px;
+      }
+      .ms-#{$i} {
+          margin-left: $i * 4px;
+      }
+      .me-#{$i} {
+          margin-right: $i * 4px;
+      }
+      .mb-#{$i} {
+          margin-bottom: $i * 4px;
+      }
+      .mt-#{$i} {
+        margin-top: $i * 4px;
+    }
+  }
+  
+  .bg{
+      &--white{
+          background-color: #fff;
+      }
+      &--primary{
+          background: $primary;
+      }
+      &--dark--secondary{
+          background-color: darken($secondary, 5%);
+      }
+      &--secondary{
+          background-color: $secondary;
+      }
+      &--gray{
+          background-color: #ddd;
+      }
+      &--gray--300{
+        background-color: #eee;
+      }
+  }
+  
+  .w-15{
+      width: 15%;
+  }
+  .ml-auto{
+      margin-left: auto;
+  }
+  .d-flex{
+      display: flex;
+  }
+  .d-block{
+      display: block;
+  }
+  .align-self-end{
+      align-self:flex-end;
+  }
+  .jy-content-between{
+      justify-content: space-between;
+  }
+  .jy-content-around{
+      justify-content: space-around;
+  }
+  .jy-content-center{
+      justify-content: center;
+  }
+  .flex-wrap{
+      flex-wrap: wrap;
+  }
+  .align-items-center{
+      align-items: center;
+  }
+  .border-top{
+      border-top: 1px solid gray;
+  }
+  .fw-bold{
+      font-weight: bold;
+  }
+  .h-100{
+      height: 100vh;
+  }
+  .text-nowrap{
+      white-space: nowrap;
+  }
+  .text-center{
+      text-align: center;
+  }
+  .flex-dir-col{
+      flex-direction: column;
+  }
+  .jy-content-sm-center{
+      @include mobile{
+          justify-content: center;
+      }
+  }
+  .d-sm-none{
+      @include mobile{
+          display: none;
+      }
+  }
+  .d-none{
+      display: none;
+  }
+  .p-absolute{
+      position: absolute;
+  }
+  .overflow-x-h{
+      overflow-x: hidden;
+  }

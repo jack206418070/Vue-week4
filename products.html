@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品列表</title>
+    <link rel="stylesheet" href="./src/css/all.css" class="css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="app">
+        <header class="d-flex jy-content-between align-items-center">
+            <div class="logo">
+                <h1>LOGO</h1>
+            </div>
+            <div class="menu">
+                <ul class="d-flex d-sm-none">
+                    <li>
+                        <a href="#"><i class="fas fa-user-shield"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-bell"></i></a>
+                    </li>
+                    <li>
+                        <a @click="logout" href="#"><i class="fas fa-sign-out-alt"></i></i></a>
+                    </li>
+                </ul>
+                <div class="menu-btn" @click="modalControl.is_sideMenu = !modalControl.is_sideMenu"></div>
+            </div>
+        </header>
+
+        <section class="d-flex bg--gray--300 overflow-x-h">
+            <div  class="side-menu" :class="{'small': sideToggle, 'show': modalControl.is_sideMenu === true, 'hide': modalControl.is_sideMenu === false}">
+                <div class="admin-info d-flex align-items-center jy-content-center">
+                    <img src="./user-13.jpeg" alt="">
+                    <div class="admin-profile" :class="{'small': sideToggle}">
+                        <h3>GinJack</h3>
+                        <p>Front end developer</p>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-tachometer-alt " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./products.html">
+                            <i class="fab fa-product-hunt " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Products</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-border-all " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-ticket-alt " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Coupon</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="side-toggle" @click="sideToggle = !sideToggle">
+                    <i v-if="sideToggle === false" class="fas fa-arrow-alt-circle-left"></i>
+                    <i v-else class="fas fa-arrow-alt-circle-right"></i>
+                </div>
+            </div>
+            <div class="content">
+
+                <modal :modaltype="modalControl" 
+                       :product="editTempProduct" 
+                       :category="categoryArr"
+                       @close-modal="closeModal" 
+                       @loading="loadingHandler" 
+                       @get-products="getProducts"
+                       v-if="modalControl.is_add || modalControl.is_edit || modalControl.is_delete">
+                </modal>
+                <div v-if="is_loading" class="loading d-flex align-items-center">
+                    <div class="loading-item "></div>
+                </div>
+
+                <div class="container d-flex jy-content-center">
+                    <div class="search w-90">
+                        <div class="search__input w-30">
+                            <div class="search__btn" 
+                                 @click="filterProducts = 'search'"
+                            >
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <input @change=" filterProducts = 'search' " type="text" class="py-2 px-2 w-100" v-model.trim="searchText">
+                        </div>    
+                    </div>
+                    <div class="total__product w-90 d-flex align-items-center jy-content-between">
+                        <p>目前有 {{ products.length }} 樣商品</p>
+                        <a @click.prevent="clearProduct('add'); modalControl.is_add = true"
+                            class="btn btn--success w-10" href="#">建立產品</a>
+                    </div>
+                    <div class="product w-90 mb-3">
+                        <ul>
+                            <li class="product__title d-flex jy-content-between">
+                                <h3 class="">產品名稱</h3>
+                                <div class="info__group w-80">
+                                    <ul class="d-flex fw-bold">
+                                        <li class="w-15 d-sm-none">原價</li>
+                                        <li class="w-15" @click="ascending = !ascending; filterProducts = 'price' " style="cursor: pointer">售價
+                                            <i v-if="ascending === false" class="fas fa-sort-numeric-up-alt ms-2"></i>
+                                            <i v-else class="fas fa-sort-numeric-down ms-2"></i>
+                                        </li>
+                                        <li class="w-30">是否啟用</li>
+                                        <li class="w-20">產品評價</li>
+                                        <li class="w-20">編輯</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li v-for="(item, index) in filterProducts" :key="item.id"
+                                class="product__item d-flex jy-content-between"
+                                :class="{'bg--dark--secondary': item.is_enabled == 1, 'bg--gray': item.is_enabled == 0}">
+                                <h3>{{ item.title }}</h3>
+                                <div class="info__group w-80">
+                                    <ul class="d-flex fw-bold align-items-center">
+                                        <li class="w-15 d-sm-none">${{ item.origin_price }}</li>
+                                        <li class="w-15">${{ item.price }}</li>
+                                        <li class="d-flex jy-content-center w-30 px-4">
+                                            <div @click="editTempProduct = item;
+                                             editProduct(item.id)"
+                                                class="toggle" :class="{ 'active': item.is_enabled == 1 }">
+                                            </div>
+                                            <p :class="{ 'active': item.is_enabled == 1 }">{{ item.is_enabled == 1 ?
+                                                '啟用' : '未啟用' }}</p>
+                                        </li>
+                                        <li class="w-20">
+                                            <ul class="d-flex jy-content-center eval">
+                                                <li class="me-1" v-for="(eval, key) in item.eval" :key="eval + key">
+                                                    <i class="far fa-star" :class="{'active': eval > key}"></i>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="w-20 d-flex jy-content-center flex-wrap">
+                                            <a @click.prevent="editTempProduct = {...item}; modalControl.is_edit= true;"
+                                                class="btn btn--success w-30 mx-2" href="#"><i class="fas fa-edit"></i></a>
+                                            <a @click.prevent="editTempProduct = {...item}; modalControl.is_delete= true" class="btn btn--danger w-30 mx-2"
+                                                href="#"><i class="fas fa-trash-alt"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <pagination :pagination="pagination" @get-product="getProducts"></pagination>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script type="module" src="./src/js/product.js"></script>
+</body>
+
+</html>
