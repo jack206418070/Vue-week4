@@ -61,10 +61,12 @@ h1{
     width: 200px;
     text-align: center;
     padding-top: 63px;
-    position: relative;
+    position: fixed;
     background-color: lighten($primary, 10%);
     min-height: 100vh;
+    left: 0;
     transition:.3s;
+    z-index: 10;
     &.show{
         display: block;
     }
@@ -213,6 +215,10 @@ section > .content{
         width: 100% !important;
         margin-bottom: 20px;
     }
+    @include mobile{
+        width: 80% !important;
+        margin-bottom: 20px;
+    }
     &__title{
         background-color: #1A535C;
     }
@@ -329,7 +335,7 @@ section > .content{
         }
     }
     @include mobile{
-        flex: 0 0 100%;
+        flex: 0 0 70%;
     }
     p{
         @include pad{

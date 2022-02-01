@@ -94,6 +94,11 @@
   .jy-content-center{
       justify-content: center;
   }
+  .jy-sm-content-end{
+      @include mobile{
+        justify-content: flex-end;
+      }
+  }
   .flex-wrap{
       flex-wrap: wrap;
   }
