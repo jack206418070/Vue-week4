@@ -34,7 +34,7 @@
         </header>
 
         <section class="d-flex bg--gray--300 overflow-x-h">
-            <div  class="side-menu" :class="{'small': sideToggle, 'show': modalControl.is_sideMenu === true, 'hide': modalControl.is_sideMenu === false}">
+            <div  class="side-menu d-sm-none" :class="{'small': sideToggle}">
                 <div class="admin-info d-flex align-items-center jy-content-center">
                     <img src="./user-13.jpeg" alt="">
                     <div class="admin-profile" :class="{'small': sideToggle}">
@@ -73,7 +73,46 @@
                     <i v-else class="fas fa-arrow-alt-circle-right"></i>
                 </div>
             </div>
-            <div class="content">
+            <div  class="side-menu d-none d-sm-block" :class="{'small': sideToggle, 'show': modalControl.is_sideMenu === true, 'hide': modalControl.is_sideMenu === false}">
+                <div class="admin-info d-flex align-items-center jy-content-center">
+                    <img src="./user-13.jpeg" alt="">
+                    <div class="admin-profile" :class="{'small': sideToggle}">
+                        <h3>GinJack</h3>
+                        <p>Front end developer</p>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-tachometer-alt " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./products.html">
+                            <i class="fab fa-product-hunt " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Products</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-border-all " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-ticket-alt " :class="{'small': sideToggle}"></i>
+                            <span :class="{'small': sideToggle}">Coupon</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="side-toggle" @click="sideToggle = !sideToggle">
+                    <i v-if="sideToggle === false" class="fas fa-arrow-alt-circle-left"></i>
+                    <i v-else class="fas fa-arrow-alt-circle-right"></i>
+                </div>
+            </div>
+            <div class="content" :class="{'show' : sideToggle !== true}">
 
                 <modal :modaltype="modalControl" 
                        :product="editTempProduct" 
@@ -87,8 +126,8 @@
                     <div class="loading-item "></div>
                 </div>
 
-                <div class="container d-flex jy-content-center jy-sm-content-end">
-                    <div class="search w-90">
+                <div class="container d-flex jy-content-center ">
+                    <div class="search w-100">
                         <div class="search__input w-30">
                             <div class="search__btn" 
                                  @click="filterProducts = 'search'"
@@ -98,12 +137,12 @@
                             <input @change=" filterProducts = 'search' " type="text" class="py-2 px-2 w-100" v-model.trim="searchText">
                         </div>    
                     </div>
-                    <div class="total__product w-90 d-flex align-items-center jy-content-between">
+                    <div class="total__product w-100 d-flex align-items-center jy-content-between">
                         <p>目前有 {{ products.length }} 樣商品</p>
                         <a @click.prevent="clearProduct('add'); modalControl.is_add = true"
                             class="btn btn--success w-10" href="#">建立產品</a>
                     </div>
-                    <div class="product w-90 mb-3">
+                    <div class="product w-100 mb-3">
                         <ul>
                             <li class="product__title d-flex jy-content-between">
                                 <h3 class="">產品名稱</h3>
@@ -138,8 +177,8 @@
                                         </li>
                                         <li class="w-20">
                                             <ul class="d-flex jy-content-center eval">
-                                                <li class="me-1" v-for="(eval, key) in item.eval" :key="eval + key">
-                                                    <i class="far fa-star" :class="{'active': eval > key}"></i>
+                                                <li class="me" v-for="(eval, key) in 5" :key="eval + key">
+                                                    <i class="far fa-star" :class="{'active': item.eval > eval}"></i>
                                                 </li>
                                             </ul>
                                         </li>
@@ -162,105 +201,105 @@
 
     <script type="text/x-template" id="productModal">
         <div class="productModal">
-            <h2>{{ modalTitle }}</h2>
-            <div v-if=" modaltype.is_delete === true " class="delete__content">
-                <p>確定要刪除 {{ tempProduct.title }} 嗎？</p>
+    <h2>{{ modalTitle }}</h2>
+    <div v-if=" modaltype.is_delete === true " class="delete__content">
+        <p>確定要刪除 {{ tempProduct.title }} 嗎？</p>
+    </div>
+    <form v-else action="#">
+        <div class="form-group">
+            <div class="form-control w-50">
+                <label for="title">產品名稱</label>
+                <input id="title" class="w-100" type="text" v-model="tempProduct.title">
             </div>
-            <form v-else action="#">
-                <div class="form-group">
-                    <div class="form-control w-50">
-                        <label for="title">產品名稱</label>
-                        <input id="title" class="w-100" type="text" v-model="tempProduct.title">
-                    </div>
-                    <div class="form-control w-50">
-                        <label for="category">產品分類</label>
-                        <select id="category" v-model="tempProduct.category">
-                            <option value="" disabled>請選擇一個分類</option>
-                            <template v-for="item in category" :key="item">
-                                <option :value="item" >{{ item }}</option>
-                            </template>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-control w-50">
-                        <label for="originPrice">原始價格</label>
-                        <input id="originPrice" type="number" min=0 v-model.number="tempProduct.origin_price">
-                    </div>
-                    <div class="form-control w-50">
-                        <label for="price">販售價格</label>
-                        <input id="price" type="number" min=0 v-model.number="tempProduct.price">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-control w-50">
-                        <div class="input-checkbox">
-                            <p class="mb-2">是否啟用</p>
-                            <div class="toggle" @click="tempProduct.is_enabled == 0 ? tempProduct.is_enabled = 1 : tempProduct.is_enabled = 0" :class="{'active': tempProduct.is_enabled == 1}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control w-50">
-                        <label for="unit">單位</label>
-                        <input class="w-100"  type="text" name="unit" id="unit" v-model="tempProduct.unit">
-                    </div>
-                </div>
-                <div class="form-control">
-                    <label for="content">產品內容</label>
-                    <input type="text" id="content" v-model="tempProduct.content">
-                </div>
-                <div class="form-control">
-                    <label for="desc">產品描述</label>
-                    <textarea name="desc" id="desc" cols="30" rows="10" v-model="tempProduct.description"></textarea>
-                </div>
-                <div class="form-control eval">
-                    <h3 class="mb-1">產品評價</h3>
-                    <ul class="d-flex">
-                        <li class="me-1">
-                            <a herf="#"><i class="far fa-star active" @click="tempProduct.eval = 1"></i></a>
-                        </li>
-                        <li class="me-1">
-                            <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 2" :class="{'active': tempProduct.eval > 1}"></i></a>
-                         </li>
-                        <li class="me-1">
-                            <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 3" :class="{'active': tempProduct.eval > 2}"></i></a>
-                        </li>
-                        <li class="me-1">
-                            <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 4" :class="{'active': tempProduct.eval > 3}"></i></a>
-                        </li>
-                        <li>
-                            <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 5" :class="{'active': tempProduct.eval > 4}"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="form-control">
-                    <label for="file">封面圖片</label>
-                    <input @change="upload('single')" type="file" class="bg--white" id="file" name="filename"  placeholder="請輸入圖片連結" >
-                    <template v-if="tempProduct.imageUrl">
-                        <div class="file__img mt-2">
-                                <div class="file__img__del" @click="tempProduct.imageUrl = '' ">刪除</div>
-                                <img style="height: 80px" :src="tempProduct.imageUrl">
-                        </div>
+            <div class="form-control w-50">
+                <label for="category">產品分類</label>
+                <select id="category" v-model="tempProduct.category">
+                    <option value="" disabled>請選擇一個分類</option>
+                    <template v-for="item in category" :key="item">
+                        <option :value="item" >{{ item }}</option>
                     </template>
-                </div>
-                <div class="form-control">
-                        <label for="file">多層圖片</label>
-                        <input @change="upload('mult')" type="file" class="bg--white" id="file2" name="filename"  placeholder="請輸入圖片連結">
-                        <template v-if="tempProduct.imagesUrl">
-                            <div class="file__img me-2 mt-2" v-for="image in tempProduct.imagesUrl" :key="image">
-                                <div class="file__img__del" @click="tempProduct.imagesUrl.splice(key, 1)">刪除</div>
-                                <img style="height: 80px;" :src="image" >   
-                            </div>
-                        </template>
-                </div>
-            </form>
-            <div class="btn-group bg--dark--secondary">
-                <a @click.prevent="$emit('close-modal')"  class="btn btn--danger" href="#">取消</a>
-                <a v-if="modalTitle === '新增產品'" @click.prevent="addProduct"  class="btn btn--success" href="#">新增產品</a>
-                <a v-else-if="modalTitle === '編輯產品'" @click.prevent="editProduct(tempProduct.id)"  class="btn btn--success" href="#">修改產品</a>
-                <a v-else="modalTitle === '刪除產品'" @click.prevent="deleteProduct(tempProduct.id)"  class="btn btn--danger" href="#">刪除產品</a>
+                </select>
             </div>
         </div>
+        <div class="form-group">
+            <div class="form-control w-50">
+                <label for="originPrice">原始價格</label>
+                <input id="originPrice" type="number" min=0 v-model.number="tempProduct.origin_price">
+            </div>
+            <div class="form-control w-50">
+                <label for="price">販售價格</label>
+                <input id="price" type="number" min=0 v-model.number="tempProduct.price">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-control w-50">
+                <div class="input-checkbox">
+                    <p class="mb-2">是否啟用</p>
+                    <div class="toggle" @click="tempProduct.is_enabled == 0 ? tempProduct.is_enabled = 1 : tempProduct.is_enabled = 0" :class="{'active': tempProduct.is_enabled == 1}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-control w-50">
+                <label for="unit">單位</label>
+                <input class="w-100"  type="text" name="unit" id="unit" v-model="tempProduct.unit">
+            </div>
+        </div>
+        <div class="form-control">
+            <label for="content">產品內容</label>
+            <input type="text" id="content" v-model="tempProduct.content">
+        </div>
+        <div class="form-control">
+            <label for="desc">產品描述</label>
+            <textarea name="desc" id="desc" cols="30" rows="10" v-model="tempProduct.description"></textarea>
+        </div>
+        <div class="form-control eval">
+            <h3 class="mb-1">產品評價</h3>
+            <ul class="d-flex">
+                <li class="me-1">
+                    <a herf="#"><i class="far fa-star active" @click="tempProduct.eval = 1"></i></a>
+                </li>
+                <li class="me-1">
+                    <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 2" :class="{'active': tempProduct.eval > 1}"></i></a>
+                 </li>
+                <li class="me-1">
+                    <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 3" :class="{'active': tempProduct.eval > 2}"></i></a>
+                </li>
+                <li class="me-1">
+                    <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 4" :class="{'active': tempProduct.eval > 3}"></i></a>
+                </li>
+                <li>
+                    <a herf="#"><i class="far fa-star" @click="tempProduct.eval = 5" :class="{'active': tempProduct.eval > 4}"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-control">
+            <label for="file">封面圖片</label>
+            <input @change="upload('single')" type="file" class="bg--white" id="file" name="filename"  placeholder="請輸入圖片連結" >
+            <template v-if="tempProduct.imageUrl">
+                <div class="file__img mt-2">
+                        <div class="file__img__del" @click="tempProduct.imageUrl = '' ">刪除</div>
+                        <img style="height: 80px" :src="tempProduct.imageUrl">
+                </div>
+            </template>
+        </div>
+        <div class="form-control">
+                <label for="file">多層圖片</label>
+                <input @change="upload('mult')" type="file" class="bg--white" id="file2" name="filename"  placeholder="請輸入圖片連結">
+                <template v-if="tempProduct.imagesUrl">
+                    <div class="file__img me-2 mt-2" v-for="image in tempProduct.imagesUrl" :key="image">
+                        <div class="file__img__del" @click="tempProduct.imagesUrl.splice(key, 1)">刪除</div>
+                        <img style="height: 80px;" :src="image" >   
+                    </div>
+                </template>
+        </div>
+    </form>
+    <div class="btn-group bg--dark--secondary">
+        <a @click.prevent="$emit('close-modal')"  class="btn btn--danger" href="#">取消</a>
+        <a v-if="modalTitle === '新增產品'" @click.prevent="addProduct"  class="btn btn--success" href="#">新增產品</a>
+        <a v-else-if="modalTitle === '編輯產品'" @click.prevent="editProduct(tempProduct.id)"  class="btn btn--success" href="#">修改產品</a>
+        <a v-else="modalTitle === '刪除產品'" @click.prevent="deleteProduct(tempProduct.id)"  class="btn btn--danger" href="#">刪除產品</a>
+    </div>
+</div>
     </script>
 
 

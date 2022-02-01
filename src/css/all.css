@@ -676,12 +676,6 @@
   }
 }
 
-@media (max-width: 768px) {
-  .d-sm-none {
-    display: none;
-  }
-}
-
 .d-none {
   display: none;
 }
@@ -692,6 +686,18 @@
 
 .overflow-x-h {
   overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .d-sm-none {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .d-sm-block {
+    display: block;
+  }
 }
 
 .card {
@@ -1204,11 +1210,11 @@ h1 {
 }
 
 .side-menu.show {
-  display: block;
+  left: 0;
 }
 
 .side-menu.hide {
-  display: none;
+  left: -200px;
 }
 
 .side-menu.small {
@@ -1327,12 +1333,19 @@ h1 {
 
 section > .content {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 85%;
-          flex: 1 1 85%;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%;
   position: relative;
   padding-top: 63px;
   height: 100vh;
   margin: 0 auto;
+  margin-left: 80px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+section > .content.show {
+  margin-left: 200px;
 }
 
 @media (max-width: 1180px) {
@@ -1341,6 +1354,12 @@ section > .content {
         -ms-flex: 1 0 80%;
             flex: 1 0 80%;
     height: 100vh;
+  }
+}
+
+@media (max-width: 768px) {
+  section > .content {
+    margin: 0 auto !important;
   }
 }
 
@@ -1383,13 +1402,6 @@ section > .content .container {
 @media (max-width: 1180px) {
   .product {
     width: 100% !important;
-    margin-bottom: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .product {
-    width: 80% !important;
     margin-bottom: 20px;
   }
 }
@@ -1549,8 +1561,8 @@ section > .content .container {
 @media (max-width: 768px) {
   .total__product {
     -webkit-box-flex: 0;
-        -ms-flex: 0 0 70%;
-            flex: 0 0 70%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
   }
 }
 
@@ -1582,7 +1594,7 @@ section > .content .container {
   transition: 0.3s;
   z-index: 100;
   opacity: 1;
-  border: 1px solid lightgray;
+  border: 1px solid gray;
 }
 
 .productModal.show {
@@ -1591,13 +1603,13 @@ section > .content .container {
 
 @media (max-width: 1180px) {
   .productModal {
-    width: 70% !important;
+    width: 80% !important;
   }
 }
 
 @media (max-width: 415px) {
   .productModal {
-    width: 90% !important;
+    width: 100% !important;
   }
 }
 

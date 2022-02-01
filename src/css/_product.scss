@@ -68,10 +68,10 @@ h1{
     transition:.3s;
     z-index: 10;
     &.show{
-        display: block;
+        left: 0;
     }
     &.hide{
-        display: none;
+        left: -200px;
     }
     &.small{
         width: 80px;
@@ -90,9 +90,6 @@ h1{
             visibility: hidden;
         }
     }
-    // @include pad{
-    //     display: none;
-    // }
     .admin-info{
         background: $primary;
         padding: 15px 10px;
@@ -166,14 +163,22 @@ h1{
 }
 
 section > .content{
-    flex: 1 1 85%;
+    flex: 1 1 100%;
     position: relative;
     padding-top: 63px;
     height: 100vh;
     margin: 0 auto;
+    margin-left: 80px;
+    transition: 0.3s;
+    &.show{
+        margin-left: 200px;
+    }
     @include pad{
         flex: 1 0 80%;
         height: 100vh;
+    }
+    @include mobile{
+        margin: 0 auto !important;
     }
     .container{
         padding: 10px 20px;
@@ -213,10 +218,6 @@ section > .content{
     box-shadow: 3px 3px 2px gray;
     @include pad{
         width: 100% !important;
-        margin-bottom: 20px;
-    }
-    @include mobile{
-        width: 80% !important;
         margin-bottom: 20px;
     }
     &__title{
@@ -335,7 +336,7 @@ section > .content{
         }
     }
     @include mobile{
-        flex: 0 0 70%;
+        flex: 0 0 100%;
     }
     p{
         @include pad{
@@ -364,15 +365,15 @@ section > .content{
     transition: 0.3s;
     z-index: 100;
     opacity: 1;
-    border: 1px solid lightgray;
+    border: 1px solid gray;
     &.show{
         opacity: 1;
     }
     @include pad{
-        width: 70% !important;
+        width: 80% !important;
     }
     @media (max-width: 415px) {
-        width: 90% !important;
+        width: 100% !important;
     }
     h2{
         text-align: center;

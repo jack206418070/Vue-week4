@@ -128,11 +128,6 @@
           justify-content: center;
       }
   }
-  .d-sm-none{
-      @include mobile{
-          display: none;
-      }
-  }
   .d-none{
       display: none;
   }
@@ -142,3 +137,13 @@
   .overflow-x-h{
       overflow-x: hidden;
   }
+  .d-sm-none{
+    @include mobile{
+        display: none;
+    }
+}
+.d-sm-block{
+  @include mobile{
+      display: block;
+  }
+}
