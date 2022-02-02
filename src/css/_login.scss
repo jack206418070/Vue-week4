@@ -10,6 +10,12 @@
     form{
         width: 30%;
         margin: 0 auto;
+        @include pad{
+            width: 50%;
+        }
+        @include mobile{
+            width: 70%;
+        }
         label{
             display: block;
             margin-bottom: 5px;

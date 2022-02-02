@@ -1050,14 +1050,6 @@
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .pagination {
-    margin: 0;
-    margin-right: 10%;
-    margin-left: auto;
-  }
-}
-
 .pagination__prev, .pagination__next {
   padding: 4px 16px;
 }
@@ -1717,6 +1709,18 @@ section > .content .container {
 .login__banner form {
   width: 30%;
   margin: 0 auto;
+}
+
+@media (max-width: 1180px) {
+  .login__banner form {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .login__banner form {
+    width: 70%;
+  }
 }
 
 .login__banner form label {
