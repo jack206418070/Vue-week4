@@ -180,7 +180,7 @@ app.component('modal', {
                 .then((res) => {
                     if (res.data.success) {
                         this.$emit('getProducts');
-                        this.tempProduct = {};
+                        // this.tempProduct = {};
                     }
                 })
                 .catch(err => {
@@ -195,7 +195,7 @@ app.component('modal', {
                 .then((res) => {
                     if (res.data.success) {
                         this.$emit('getProducts');
-                        this.tempProduct = {};
+                        // this.tempProduct = {};
                     }
                 })
                 .catch((err) => {
@@ -209,7 +209,7 @@ app.component('modal', {
                 .then((res) => {
                     if (res.data.success) {
                         this.$emit('getProducts');
-                        this.tempProduct = {};
+                        // this.tempProduct = {};
                     }
                 })
                 .catch((err) => {
