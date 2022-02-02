@@ -62,10 +62,6 @@ const app = createApp({
                     console.dir(err);
                 })
         },
-        clearProduct(type) {
-            this.tempProduct = { is_enabled: 0 }
-            type === 'add' ? this.is_add = false : this.is_edit = false;
-        },
         closeModal() {
             this.modalControl.is_add = false;
             this.modalControl.is_edit = false;
@@ -180,7 +176,6 @@ app.component('modal', {
                 .then((res) => {
                     if (res.data.success) {
                         this.$emit('getProducts');
-                        // this.tempProduct = {};
                     }
                 })
                 .catch(err => {
@@ -195,7 +190,6 @@ app.component('modal', {
                 .then((res) => {
                     if (res.data.success) {
                         this.$emit('getProducts');
-                        // this.tempProduct = {};
                     }
                 })
                 .catch((err) => {
@@ -209,7 +203,6 @@ app.component('modal', {
                 .then((res) => {
                     if (res.data.success) {
                         this.$emit('getProducts');
-                        // this.tempProduct = {};
                     }
                 })
                 .catch((err) => {
